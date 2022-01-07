@@ -12,6 +12,9 @@ interface CategoryDao {
     @Query("SELECT name FROM Categories")
     fun getCategoryNames(): LiveData<List<String>>
 
+    @Query("SELECT * FROM Categories WHERE name = :categoryName")
+    fun getCategoryByName(categoryName: String): Category
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCategory(category: Category)
 
@@ -20,4 +23,5 @@ interface CategoryDao {
 
     @Delete
     fun deleteCategory(category: Category)
+
 }

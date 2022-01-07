@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ravapps.sampledrinks.DEFAULT_PICTURE_FOLDER
 import com.ravapps.sampledrinks.R
 import com.ravapps.sampledrinks.getAppSpecificAlbumStorageDir
-import com.ravapps.sampledrinks.loadAssetImage
+import com.ravapps.sampledrinks.useLocalImage
 import com.ravapps.sampledrinks.ui.categories.CategoryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,7 +32,7 @@ class AddDrinkFragment: Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         this.menu = menu
-        inflater.inflate(R.menu.add_menu, menu);
+        inflater.inflate(R.menu.add_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
 
         initMenuState()
@@ -40,7 +40,7 @@ class AddDrinkFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -59,6 +59,7 @@ class AddDrinkFragment: Fragment() {
             }
             R.id.menu_delete -> {
                 drinksViewModel.deleteDrink()
+                findNavController().popBackStack()
             }
         }
 
@@ -117,10 +118,7 @@ class AddDrinkFragment: Fragment() {
 
         button.setOnClickListener {
             val categoryName = sp.selectedItem?.toString()
-            Log.d("=======", "spinner.categoryName: ${categoryName}")
-            val categoryId = categoryViewModel.getCategoryIdByName(categoryName)
-
-            drinksViewModel.addDrink(categoryId)
+            drinksViewModel.addDrink(categoryName!!)
             findNavController().popBackStack()
         }
     }
@@ -141,7 +139,7 @@ class AddDrinkFragment: Fragment() {
 
     private fun observeImageChanges() {
         drinksViewModel.imageName.observe(viewLifecycleOwner, {
-            image.loadAssetImage(it)
+            image.useLocalImage(it)
         })
     }
 
@@ -163,6 +161,7 @@ class AddDrinkFragment: Fragment() {
         drinksViewModel.categoryName.observe(viewLifecycleOwner, { categoryName ->
             val spinnerPosition: Int =
                 (sp.adapter as ArrayAdapter<String>).getPosition(categoryName)
+            Log.d("=====", "spinnerPosition: $spinnerPosition")
             sp.setSelection(spinnerPosition)
         })
     }

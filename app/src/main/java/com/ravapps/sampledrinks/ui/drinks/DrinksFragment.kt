@@ -1,7 +1,6 @@
 package com.ravapps.sampledrinks.ui.drinks
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -11,16 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ravapps.sampledrinks.adapters.CategoryAdapter
 import com.ravapps.sampledrinks.R
+import com.ravapps.sampledrinks.model.ItemModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
-
-
-
 
 class DrinksFragment: Fragment() {
     companion object {
         const val actionToAdd = R.id.action_drinksFragment_to_addDrinkFragment
-        const val actionIn = R.id.action_global_drinksFragment
     }
 
     private val drinksViewModel: DrinksViewModel by viewModel()
@@ -29,13 +24,13 @@ class DrinksFragment: Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         this.menu = menu
-        inflater.inflate(R.menu.drinks_menu, menu);
+        inflater.inflate(R.menu.drinks_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -51,11 +46,7 @@ class DrinksFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.drinks_fragment, container, false)
-        arguments?.getInt("categoryId")?.let {
-            Log.d("=========", "category received: ${it}")
-           // drinksViewModel.drinksFiltered.removeObserver(observer)
-            drinksViewModel.setFilterByCategory(it).observe(viewLifecycleOwner, { categoryAdapter.updateDataset(it ?: emptyList()) })
-        }
+        observeFragmentActionType()
 
         val rv: RecyclerView = view.findViewById(R.id.rv_drinks)
         val fab = view.findViewById<FloatingActionButton>(R.id.fab_add_new_drink)
@@ -69,45 +60,42 @@ class DrinksFragment: Fragment() {
         }
 
 
-
         categoryAdapter.setOnLongClickListener{ id, data, _->
-            val bundle = Bundle().apply {
-                putInt("drinkId",id)
-                putString("drink",data?.title)
-                putString("category",data?.subTitle)
-                putString("imageName",data?.imageName)
-            }
-
-            findNavController().navigate(R.id.action_drinksFragment_to_addDrinkFragment, bundle)
+            openDrinkViewAndEditScreen(id, data)
         }
 
         categoryAdapter.setOnClickListener{ _, _, _->
-            Toast.makeText(requireContext(), "Long press to edit", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Long press to view and edit", Toast.LENGTH_SHORT).show()
         }
 
         return view
     }
 
+    private fun openDrinkViewAndEditScreen(
+        id: Int,
+        data: ItemModel?
+    ) {
+        val bundle = Bundle().apply {
+            putInt("drinkId", id)
+            putString("drink", data?.title)
+            putString("category", data?.subTitle)
+            putString("imageName", data?.imageName)
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-      //  drinksViewModel.drinksFiltered.observe(viewLifecycleOwner, observer)
-//        drinksViewModel.filterByCategory.observe(viewLifecycleOwner, { category ->
-//            if (category !== null) {
-//                Log.d("=========", "category received: ${category}")
-////                drinksViewModel.drinks.removeObservers(viewLifecycleOwner)
-////                drinksViewModel.drinksFiltered.observe(viewLifecycleOwner, observer)
-//            } else {
-//                Log.d("=========", "category received 2: ${category}")
-////                drinksViewModel.drinksFiltered.removeObservers(viewLifecycleOwner)
-////                drinksViewModel.drinks.observe(viewLifecycleOwner, observer)
-//
-//            }
-//        })
-
-//        drinksViewModel.drinks2.observe(viewLifecycleOwner, {
-//            Log.d("========= drinks 2", it.toString())
-//        })
+        findNavController().navigate(R.id.action_drinksFragment_to_addDrinkFragment, bundle)
     }
 
+    /**
+     * Arguments from Previous destination allows to define FragmentActionType:
+     * categoryId exist - View mode
+     * not exist - Create mode
+     * click on EDIT menItem in View mode activates Edit mode
+     */
+    private fun observeFragmentActionType() {
+        arguments?.getInt("categoryId")?.let {
+            drinksViewModel.setFilterByCategory(it).observe(viewLifecycleOwner, {
+                categoryAdapter.updateDataset(it ?: emptyList())
+            })
+        }
+    }
 }

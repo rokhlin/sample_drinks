@@ -2,13 +2,11 @@ package com.ravapps.sampledrinks.model
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.ravapps.sampledrinks.model.DrinkData
-import com.ravapps.sampledrinks.model.ItemModel
 
 data class Drink (
     @Embedded val drinkData: DrinkData,
     @Relation(
-        parentColumn = "drinkId",
+        parentColumn = "categoryId",
         entityColumn = "categoryId"
     )
     val category: Category
@@ -22,6 +20,7 @@ data class Drink (
     override val imageName: String
         get() = drinkData.imageName ?: "sprkl_water.webp"
 
-
-
+    override fun toString(): String {
+        return "Drink(drinkData=$drinkData, category=$category, id=$id)"
+    }
 }

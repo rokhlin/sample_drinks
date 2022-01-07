@@ -14,7 +14,7 @@ data class Category (
     @PrimaryKey(autoGenerate = true) var categoryId: Int = 0
 
     override val id: Int
-        get() = categoryId ?: 0
+        get() = categoryId
     override val title: String
         get() = name
     override val subTitle: String?
@@ -25,4 +25,10 @@ data class Category (
         put("name", name)
         put("image", imageName)
     }
+
+    override fun toString(): String {
+        return "Category(name='$name', imageName='$imageName', categoryId=$categoryId, id=$id)"
+    }
+
+
 }

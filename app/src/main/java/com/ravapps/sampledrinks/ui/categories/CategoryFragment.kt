@@ -1,6 +1,7 @@
 package com.ravapps.sampledrinks.ui.categories
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,13 +19,13 @@ class CategoryFragment: Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         this.menu = menu
-        inflater.inflate(R.menu.category_menu, menu);
+        inflater.inflate(R.menu.category_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -72,6 +73,7 @@ class CategoryFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         categoryViewModel.categories.observe(viewLifecycleOwner, {
+            Log.d("=====", "categories : ${it}")
             categoryAdapter.updateDataset(it)
         })
 

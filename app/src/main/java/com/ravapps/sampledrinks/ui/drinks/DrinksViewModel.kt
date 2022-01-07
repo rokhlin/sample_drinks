@@ -8,6 +8,7 @@ import com.ravapps.sampledrinks.DEFAULT_PICTURE_NAME
 import com.ravapps.sampledrinks.model.Drink
 import com.ravapps.sampledrinks.model.DrinkData
 import com.ravapps.sampledrinks.repository.Repository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DrinksViewModel(private val repo : Repository): ViewModel() {
@@ -26,16 +27,17 @@ class DrinksViewModel(private val repo : Repository): ViewModel() {
     val categoryName: LiveData<String>
         get() = _categoryName
 
-    fun addDrink(categoryId: Int) {
-        viewModelScope.launch {
+    fun addDrink(categoryName: String) = viewModelScope.launch(Dispatchers.Default) {
+            val categoryId = repo.getCategoryIdByName(categoryName)
+
             val newDrink = DrinkData(newDrinkName.value!!, imageName.value, categoryId)
+
             if (editDrinkId >= 0) {
                 newDrink.drinkId = editDrinkId
                 repo.editDrink(newDrink)
             } else {
                 repo.addDrink(newDrink)
             }
-        }
     }
 
     fun setDrinkName(text: CharSequence?) = _newDrinkName.postValue(text?.toString())
@@ -46,10 +48,8 @@ class DrinksViewModel(private val repo : Repository): ViewModel() {
         return repo.getDrinksFiltered(categoryId)
     }
 
-    fun deleteDrink() {
-        viewModelScope.launch {
+    fun deleteDrink() = viewModelScope.launch(Dispatchers.Default) {
             repo.deleteDrink(editDrinkId)
-        }
     }
 }
 

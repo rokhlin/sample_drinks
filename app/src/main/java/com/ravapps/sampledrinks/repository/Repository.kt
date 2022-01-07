@@ -6,10 +6,6 @@ import com.ravapps.sampledrinks.model.Drink
 import com.ravapps.sampledrinks.model.DrinkData
 
 interface Repository {
-    suspend fun giveHello(): String
-    fun giveHelloAsLiveData(): LiveData<String>
-
-    // Actual
     fun getCategories(): LiveData<List<Category>>
     fun getCategoryNames(): LiveData<List<String>>
 
@@ -21,7 +17,9 @@ interface Repository {
 
     suspend fun editCategory(category: Category)
     suspend fun addCategory(category: Category)
+    suspend fun getCategoryIdByName(categoryName: String): Int
     suspend fun deleteDrink(id: Int)
     suspend fun deleteCategory(id: Int)
+
 
 }

@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ravapps.sampledrinks.R
-import com.ravapps.sampledrinks.loadAssetImage
+import com.ravapps.sampledrinks.useLocalImage
 import com.ravapps.sampledrinks.model.ItemModel
 
 
@@ -89,7 +89,7 @@ class CategoryAdapter(private val numColumns: Int = 1): RecyclerView.Adapter<Rec
                     layoutParams.height = cardWidth
                     layoutParams.width = cardWidth
                 }
-                loadAssetImage(item.imageName)
+                useLocalImage(item.imageName)
             }
         }
 

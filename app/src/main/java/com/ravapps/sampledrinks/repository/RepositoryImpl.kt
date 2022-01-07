@@ -14,16 +14,6 @@ import org.koin.core.component.KoinComponent
 
 class RepositoryImpl(private val drinksDao: DrinkDao, private val categoryDao: CategoryDao): Repository, KoinComponent {
 
-    override fun giveHelloAsLiveData() = liveData {
-        emit("Loading started")
-        kotlinx.coroutines.delay(3000)
-        emit("Loading finished")
-    }
-
-    override suspend fun giveHello(): String = withContext(Dispatchers.IO) {
-        kotlinx.coroutines.delay(3000)
-        return@withContext "Loading finished"
-    }
 
     override fun getCategories() = categoryDao.getCategories()
 
@@ -38,6 +28,9 @@ class RepositoryImpl(private val drinksDao: DrinkDao, private val categoryDao: C
             })}
         }
 
+    }
+    override suspend fun getCategoryIdByName(categoryName: String): Int = withContext(Dispatchers.IO) {
+        return@withContext categoryDao.getCategoryByName(categoryName).categoryId
     }
 
     override suspend fun addDrink(drink: DrinkData) = withContext(Dispatchers.IO) {
