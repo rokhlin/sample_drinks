@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Name of Your Category"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/img_category"
+        app:layout_constraintStart_toStartOf="@+id/img_category"
+        app:layout_constraintTop_toBottomOf="@+id/img_category" />
+
+    <ImageView
+        android:id="@+id/img_category"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="44dp"
+        android:contentDescription="Drink image"
+        app:layout_constraintBottom_toTopOf="@+id/et_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:contentDescription="Choose Image"
+        app:layout_constraintBottom_toBottomOf="@+id/img_category"
+        app:layout_constraintEnd_toEndOf="@+id/img_category"
+        app:srcCompat="@drawable/ic_baseline_flip_camera_ios_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/categoryFragment">
+
+    <action
+        android:id="@+id/action_global_drinksFragment"
+        app:destination="@id/drinksFragment" />
+    <action
+        android:id="@+id/action_global_categoryFragment"
+        app:destination="@id/categoryFragment" />
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.ravapps.sampledrinks.ui.categories.CategoryFragment"
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_categoryFragment_to_drinksFragment"
+            app:destination="@id/drinksFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_categoryFragment_to_addCategoryFragment"
+            app:destination="@id/addCategoryFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            android:defaultValue="@null" />
+        <argument
+            android:name="imageName"
+            app:argType="string"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/drinksFragment"
+        android:name="com.ravapps.sampledrinks.ui.drinks.DrinksFragment"
+        android:label="DrinksFragment" >
+        <action
+            android:id="@+id/action_drinksFragment_to_addDrinkFragment"
+            app:destination="@id/addDrinkFragment" />
+        <argument
+            android:name="drinkId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="drink"
+            app:argType="string"
+            android:defaultValue="@null" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            android:defaultValue="@null" />
+        <argument
+            android:name="imageName"
+            app:argType="string"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDrinkFragment"
+        android:name="com.ravapps.sampledrinks.ui.drinks.AddDrinkFragment"
+        android:label="AddDrinkFragment" >
+        <action
+            android:id="@+id/action_addDrinkFragment_to_drinksFragment2"
+            app:destination="@id/drinksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCategoryFragment"
+        android:name="com.ravapps.sampledrinks.ui.categories.AddCategoryFragment"
+        android:label="AddCategoryFragment" />
+
+</navigation>
