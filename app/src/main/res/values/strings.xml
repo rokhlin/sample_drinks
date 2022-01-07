@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Sample Drinks</string>
+    <string name="save">Save</string>
+    <string name="name_of_your_category">Name of Your Category</string>
+    <string name="drink_image">Drink image</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="name_of_your_drink">Name of Your Drink</string>
+    <string name="select_category">Select Category</string>
+    <string name="add_new_drink">Add New Drink</string>
+    <string name="item">Item</string>
+    <string name="image">Image</string>
 </resources>

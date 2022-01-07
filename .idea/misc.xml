@@ -8,6 +8,10 @@
         <entry key="..\:/Programming/SampleDrinks/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Programming/SampleDrinks/app/src/main/res/layout/add_category_fragment.xml" value="0.1" />
         <entry key="..\:/Programming/SampleDrinks/app/src/main/res/layout/add_drink_fragment.xml" value="0.1" />
+        <entry key="..\:/Programming/SampleDrinks/app/src/main/res/layout/categories_fragment.xml" value="0.31979166666666664" />
+        <entry key="..\:/Programming/SampleDrinks/app/src/main/res/layout/drinks_fragment.xml" value="0.31979166666666664" />
+        <entry key="..\:/Programming/SampleDrinks/app/src/main/res/layout/grid_item.xml" value="0.31979166666666664" />
+        <entry key="..\:/Programming/SampleDrinks/app/src/main/res/layout/list_item.xml" value="0.31979166666666664" />
         <entry key="..\:/Programming/SampleDrinks/app/src/main/res/menu/add_menu.xml" value="0.1" />
       </map>
     </option>
