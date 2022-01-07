@@ -15,7 +15,7 @@ import org.koin.dsl.module
 val appModule = module {
     // DB
     single { Room.databaseBuilder(get(), DrinksDatabase::class.java, "drinks_database")
-        .addCallback(DatabaseCallback())
+        .addCallback(DatabaseCallback()) // Pre initialisation for Categories
         .build()
     }
     single<CategoryDao> { get<DrinksDatabase>().categoryDao() }
